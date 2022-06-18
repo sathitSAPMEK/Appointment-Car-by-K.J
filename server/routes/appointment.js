@@ -20,6 +20,7 @@ const storage = multer.diskStorage({
     cb(null, uuidv4() + "-" + fileName);
   },
 });
+
 var upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {

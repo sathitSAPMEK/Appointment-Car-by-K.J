@@ -10,12 +10,7 @@ router.get('/', async (req, res, next) => {
 router.get("/getAppointment", async (req, res) => {
   try {
     var { dateStart, dateEnd } = req.query;
-    // var setDataSendToClient = [];
-
-    // dateStart = '2022-05-23'
-    // dateEnd = '2022-05-23'
-
-    let dataCategory = firestoreDB.collection("appointment");
+    let dataCategory = firestoreDB.collection("appointment").where('status', 'in', ['2','3']);
     let data = await dataCategory.get();
     let list = data.docs.map((doc, index) => ({
       index: index + 1,
@@ -23,11 +18,6 @@ router.get("/getAppointment", async (req, res) => {
       ...doc.data(),
       dateAppointment: formatDate(doc.data().date_appointment)
     })).filter(item => new Date(dateStart) <= new Date(item.dateAppointment) && new Date(dateEnd) >= new Date(item.dateAppointment))
-
-    // .filter(item => new Date(item.date_appointment) >= new Date(dateStart) && new Date(item.date_appointment) >= new Date(dateEnd))
-
-    console.log(list);
-
     resSucess(res, 200, list, "Get Data OK");
   } catch (error) {
     console.log(error);

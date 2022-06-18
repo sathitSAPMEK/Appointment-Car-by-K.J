@@ -93,6 +93,7 @@ const Ledger = () => {
 
   const [showTable, setShowTable] = useState(false)
   const [dataAppointment, setdataAppointment] = useState([])
+  const [dataStatus, setDataStatus] = useState([])
 
   const [updateData, setUpdateData] = useState(false)
 
@@ -110,6 +111,20 @@ const Ledger = () => {
         .then((data) => {
           // console.log(data)
           setdataAppointment(data.data)
+          setShowTable(true)
+        })
+    }
+    fetdata()
+  }, [updateData])
+
+  // Fetch Data
+  useEffect(() => {
+    const fetdata = async () => {
+      await fetch('http://localhost:3001/api/getStatus')
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          setDataStatus(data.data)
           setShowTable(true)
         })
     }
@@ -143,17 +158,17 @@ const Ledger = () => {
       headerName: 'Status',
       type: 'text',
       width: 160,
-      // renderCell: (params) => {
-      //   let status = params.row.status
-      //   let statusName = dataStatus
-      //     .filter((item) => {
-      //       if (item.status_id === status) {
-      //         return item.name
-      //       }
-      //     })
-      //     .map((item) => item.name)
-      //   return statusName[0]
-      // },
+      renderCell: (params) => {
+        let status = params.row.status
+        let statusName = dataStatus
+          .filter((item) => {
+            if (item.status_id === status) {
+              return item.name
+            }
+          })
+          .map((item) => item.name)
+        return statusName[0]
+      },
     },
   ]
 

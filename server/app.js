@@ -52,13 +52,6 @@ app.get('/', async (req, res, next) => {
   });
 });
 
-// app.use('/api', checkAuthenticated, require('./routes/api.route'));
-// app.use('/category', checkAuthenticated, require('./routes/categorySpares'));
-// app.use('/spares', checkAuthenticated, require('./routes/spares'));
-// app.use('/appointment', checkAuthenticated, require('./routes/appointment'));
-// app.use('/chats', checkAuthenticated, require('./routes/chats'));
-// app.use('/report', checkAuthenticated, require('./routes/reports'));
-
 app.use('/api', require('./routes/api.route'));
 app.use('/category', require('./routes/categorySpares'));
 app.use('/spares', require('./routes/spares'));

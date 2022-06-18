@@ -4,8 +4,6 @@ const { resSucess, resError } = require("../modules/sender");
 const bcrypt = require('bcrypt');
 
 router.post('/', async (req, res, next) => {  
-  // console.log(req.body)
-  
   const checkUserName = async(userName) =>{
     return new Promise(async (resolve, reject) =>{
       try {
